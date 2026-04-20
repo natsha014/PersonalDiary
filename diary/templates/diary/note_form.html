@@ -1,0 +1,18 @@
+{% extends 'diary/base.html' %}
+
+{% block title %}Дневник{% endblock %}
+
+{% block content %}
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Добавить заметку</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+</body>
+{% endblock %}
