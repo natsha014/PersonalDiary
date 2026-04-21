@@ -2,12 +2,13 @@ from diary.apps import DiaryConfig
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from diary.views import NoteListView, NoteDetailView, NoteCreateView, NoteUpdateView, NoteDeleteView, NoteTemplateView
+from diary.views import NoteListView, NoteDetailView, NoteCreateView, NoteUpdateView, NoteDeleteView, HomeTemplateView
 
 app_name = DiaryConfig.name
 
 urlpatterns = [
-    path('', NoteListView.as_view(), name='note_list'),
+    path('', HomeTemplateView.as_view(), name='home'),
+    path('notes/', NoteListView.as_view(), name='note_list'),
     path('diary/<int:pk>/', NoteDetailView.as_view(), name='note_detail'),
     path('diary/create/', NoteCreateView.as_view(), name='note_create'),
     path('diary/<int:pk>/update/', NoteUpdateView.as_view(), name='note_update'),

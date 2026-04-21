@@ -1,8 +1,13 @@
 from django.contrib import admin
 from .models import Note
 
+
 @admin.register(Note)
-class PostAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'created_at')
-    list_filter = ('created_at')
-    search_fields = ('title', 'content')
+class NoteAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'author', 'created_at',)
+
+    list_filter = ('created_at', 'author',)
+
+    search_fields = ('title', 'content', 'author__email',)
+
+    readonly_fields = ('created_at',)

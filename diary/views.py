@@ -1,9 +1,13 @@
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from diary.models import Note
 from django.urls import reverse_lazy
 from django.core.exceptions import PermissionDenied
+
+
+class HomeTemplateView(TemplateView):
+    template_name = 'diary/home.html'
 
 
 class NoteListView(LoginRequiredMixin, ListView):
@@ -24,7 +28,7 @@ class NoteDetailView(LoginRequiredMixin, DetailView):
     model = Note
 
     def get_queryset(self):
-        queryset = Note.objects.filter(author=self.request.user)
+        return Note.objects.filter(author=self.request.user)
 
 
 class NoteCreateView(LoginRequiredMixin, CreateView):
