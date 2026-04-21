@@ -6,7 +6,6 @@ from pathlib import Path
 
 load_dotenv(override=True)
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -14,7 +13,6 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True if os.getenv('DEBUG') == 'True' else False
 
 ALLOWED_HOSTS = []
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -56,7 +54,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 if 'test' in sys.argv:
     DATABASES = {
         'default': {
@@ -76,7 +73,6 @@ else:
         }
     }
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -92,7 +88,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Moscow'
@@ -101,7 +96,6 @@ USE_I18N = True
 USE_L18N = True
 
 USE_TZ = True
-
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
@@ -112,8 +106,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 AUTH_USER_MODEL = 'users.User'
 
+LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'diary:note_list'
-LOGOUT_REDIRECT_URL = 'users:login'
+LOGOUT_REDIRECT_URL = 'diary:home'
 
 CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
 if CACHE_ENABLED:

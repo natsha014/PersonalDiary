@@ -4,15 +4,48 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">Регистрация</h1>
-    <form method="post">
-        {% if form.errors %}
-            <div class="alert alert-danger">{{ form.errors }}</div>
-        {% endif %}
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Регистрация</button>
-        <a href="{% url 'catalog:product_list' %}" class="btn btn-secondary">Отмена</a>
-    </form>
+    <div class="card shadow-sm mx-auto" style="max-width: 500px;">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h4 mb-0">Создать аккаунт</h2>
+        </div>
+        <div class="card-body p-4">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {{ form.non_field_errors }}
+                </div>
+                {% endif %}
+
+                {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}" class="form-label">
+                        {{ field.label }}
+                        {% if field.field.required %}<span class="text-danger">*</span>{% endif %}
+                    </label>
+
+                    <input type="{{ field.field.widget.input_type|default:'text' }}"
+                           name="{{ field.html_name }}"
+                           class="form-control {% if field.errors %}is-invalid{% endif %}"
+                           id="{{ field.id_for_label }}"
+                           placeholder="{{ field.help_text|striptags }}">
+
+                    {% if field.errors %}
+                    <div class="invalid-feedback">
+                        {{ field.errors|striptags }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Зарегистрироваться</button>
+                    <a href="{% url 'users:login' %}" class="btn btn-link">Уже есть аккаунт? Войти</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
