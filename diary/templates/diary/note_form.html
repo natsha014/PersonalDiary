@@ -34,7 +34,7 @@
                                name="{{ field.html_name }}"
                                class="form-control {% if field.errors %}is-invalid{% endif %}"
                                id="{{ field.id_for_label }}"
-                               {% if field.value and field.field.widget.input_type !='file' %}value="{{ field.value }}"
+                               {% if field.value and field.field.widget.input_type != 'file' %}value="{{ field.value }}"
                                {% endif %}>
                         {% endif %}
 
