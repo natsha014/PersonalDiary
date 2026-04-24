@@ -1,6 +1,9 @@
 name: Django CI/CD Diary
 
-on: [push]
+on:
+  push:
+    branches:
+      - '**'
 
 jobs:
   lint:
@@ -63,7 +66,10 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /home/natsha/PersonalDiary
-            git pull origin main
+            cd ~/PersonalDiary
+            git fetch origin ${{ github.ref_name }}
+            git checkout ${{ github.ref_name }}
+            git reset --hard origin/${{ github.ref_name }}
             docker compose pull
             docker compose up -d
+            docker image prune -f
