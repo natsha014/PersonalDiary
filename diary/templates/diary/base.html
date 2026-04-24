@@ -14,7 +14,6 @@
         <div class="navbar-nav ms-auto">
             {% if user.is_authenticated %}
             <a class="nav-link text-white" href="{% url 'diary:note_list' %}">Мои записи</a>
-            <a class="nav-link text-white" href="{% url 'diary:note_create' %}">➕ Новая заметка</a>
             <a class="nav-link text-white" href="{% url 'users:profile' %}">Профиль ({{ user.email }})</a>
             <form action="{% url 'users:logout' %}" method="post" class="d-inline">
                 {% csrf_token %}
