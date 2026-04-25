@@ -37,12 +37,40 @@
 
 Проект будет доступен по адресу: http://localhost:82
 
-## 🌍 Деплой на сервере
+## 🌐 Деплой и удаленный сервер
 
-Проект развернут на удаленном сервере.
+Проект развернут на удаленном сервере и настроен на автоматический деплой при каждом `push`
+
 Адрес сайта: http://81.26.180.221:82
 
 Админка: `/admin/` (используется для управления пользователями и записями)
+
+### Настройка удаленного сервера (Ubuntu)
+
+1. Установите Docker и Docker Compose:
+   ```bash
+   sudo apt update && sudo apt install docker.io docker-compose-v2 -y
+    ```
+
+2. Настройте права доступа для управления Docker без sudo:
+    ```bash
+    sudo usermod -aG docker $USER
+    sudo chmod 666 /var/run/docker.sock
+   ```
+
+3. Настройка `CI/CD (GitHub Actions)`
+
+   Для работы автоматического деплоя в репозитории настроены следующие GitHub Secrets:
+
+   `DOCKER_HUB_USERNAME / DOCKER_HUB_ACCESS_TOKEN` — логин и токен Docker Hub
+
+   `SERVER_IP` — IP-адрес сервера
+
+   `SSH_USER` — пользователь сервера
+
+   `SSH_KEY` — приватный SSH-ключ (содержимое файла id_rsa)
+
+   `DEPLOY_DIR` — путь к папке проекта на сервере
 
 ## 🧪 Тестирование
 

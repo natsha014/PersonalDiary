@@ -1,37 +1,53 @@
 {% extends 'diary/base.html' %}
+
 {% block content %}
-<div class="card shadow-sm mx-auto" style="max-width: 500px;">
-    <div class="card-body">
-        <h3>Настройки профиля</h3>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+<div class="row justify-content-center mx-0">
+    <div class="col-12 col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0 shadow">
+            <div class="card-body p-3 p-md-4">
+                <h3 class="mb-4 text-center">Настройки профиля</h3>
 
-            {% for field in form %}
-            <div class="mb-3">
-                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
 
-                {% if field.field.widget.input_type == 'file' %}
-                <input type="file" name="{{ field.html_name }}" class="form-control" id="{{ field.id_for_label }}">
-                {% if field.value %}
-                <div class="form-text">Текущий файл: {{ field.value }}</div>
-                {% endif %}
-                {% else %}
-                <input type="{{ field.field.widget.input_type|default:'text' }}"
-                       name="{{ field.html_name }}"
-                       class="form-control"
-                       id="{{ field.id_for_label }}"
-                       value="{{ field.value|default:'' }}">
-                {% endif %}
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label fw-bold">{{ field.label }}</label>
 
-                {% if field.errors %}
-                <div class="text-danger small">{{ field.errors }}</div>
-                {% endif %}
+                        {% if field.field.widget.input_type == 'file' %}
+                        <input type="file"
+                               name="{{ field.html_name }}"
+                               class="form-control form-control-lg"
+                               id="{{ field.id_for_label }}">
+
+                        {% if field.value %}
+                        <div class="form-text text-truncate mt-1">
+                            Текущий файл: <span class="badge bg-light text-dark border">{{ field.value }}</span>
+                        </div>
+                        {% endif %}
+
+                        {% else %}
+                        <input type="{{ field.field.widget.input_type|default:'text' }}"
+                               name="{{ field.html_name }}"
+                               class="form-control"
+                               id="{{ field.id_for_label }}"
+                               value="{{ field.value|default:'' }}">
+                        {% endif %}
+
+                        {% if field.errors %}
+                        <div class="text-danger small mt-1">{{ field.errors }}</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <div class="mt-4 d-flex flex-column flex-md-row gap-2">
+                        <button type="submit" class="btn btn-primary w-100 w-md-auto">Сохранить изменения</button>
+                        <a href="{% url 'users:profile' %}"
+                           class="btn btn-outline-secondary w-100 w-md-auto text-center">Отмена</a>
+                    </div>
+                </form>
             </div>
-            {% endfor %}
-
-            <button type="submit" class="btn btn-success">Сохранить</button>
-            <a href="{% url 'users:profile' %}" class="btn btn-link">Отмена</a>
-        </form>
+        </div>
     </div>
 </div>
 {% endblock %}
