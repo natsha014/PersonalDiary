@@ -70,6 +70,6 @@ jobs:
             git fetch origin ${{ github.ref_name }}
             git checkout ${{ github.ref_name }}
             git reset --hard origin/${{ github.ref_name }}
-            docker compose pull
-            docker compose up -d
-            docker image prune -f
+            sudo docker compose pull
+            sudo docker compose up -d
+            sudo docker image prune -f
